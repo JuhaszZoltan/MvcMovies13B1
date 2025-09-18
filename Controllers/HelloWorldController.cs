@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+using System.Text.Encodings.Web;
 
 namespace MvcMovies.Controllers;
 
 public class HelloWorldController : Controller
 {
 
-    public string Index()
+    public IActionResult Index()
     {
-        return "ez az alapértelmezett action";
+        return View();
     }
 
-    public string Welcome()
+    //GET: /HelloWorld/Welcome
+    //https://localchost:{port}//HelloWorld/Welcome?name={keresztneved}&number={korod}
+    public IActionResult Welcome(string name, int age = 18)
     {
-        return "ez pedig a Welcome action method...";
+        ViewData["WelcomeMessage"] = "Hello " + name + "!";
+        ViewData["Age"] = age;
+        return View();
     }
 }
