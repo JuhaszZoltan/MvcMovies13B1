@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +17,34 @@ namespace MvcMovies.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
-            return View(await _context.Movie.ToListAsync());
+            if (_context.Movie is null)
+            {
+                return Problem("Entity set MvcMoviesContext.Movie is null");
+            }
+
+            var genreQuery = _context.Movie.Select(m => m.Genre).Distinct().Order();
+
+            var movieQuery = _context.Movie.Select(m => m);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                movieQuery = movieQuery.Where(s => s.Title.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(movieGenre))
+            {
+                movieQuery = movieQuery.Where(m => m.Genre == movieGenre);
+            }
+
+            MovieGenreViewModel movieGenreVM = new()
+            {
+                Genres = new(await genreQuery.ToListAsync()),
+                Movies = await movieQuery.ToListAsync(),
+            };
+
+            return View(movieGenreVM);
         }
 
         // GET: Movies/Details/5
