@@ -18,6 +18,7 @@ public static class SeedData
                     ReleaseDate = DateTime.Parse("2012-09-08"),
                     Genre = "Science Fiction",
                     Price = 12.99M,
+                    Rating = "R",
                 },
                 new Movie
                 {
@@ -25,6 +26,7 @@ public static class SeedData
                     ReleaseDate = DateTime.Parse("2003-10-10"),
                     Genre = "Action",
                     Price = 8.49M,
+                    Rating = "R",
                 },
                 new Movie
                 {
@@ -32,6 +34,7 @@ public static class SeedData
                     ReleaseDate = DateTime.Parse("2004-04-08"),
                     Genre = "Action",
                     Price = 8.49M,
+                    Rating = "R",
                 },
                 new Movie
                 {
@@ -39,6 +42,7 @@ public static class SeedData
                     ReleaseDate = DateTime.Parse("1927-01-10"),
                     Genre = "Silent Sci-Fi",
                     Price = 4.99M,
+                    Rating = "PG",
                 },
                 new Movie
                 {
@@ -46,6 +50,7 @@ public static class SeedData
                     ReleaseDate = DateTime.Parse("1995-12-29"),
                     Genre = "Thriller",
                     Price = 14.99M,
+                    Rating = "R",
                 });
             context.SaveChanges();
         }
